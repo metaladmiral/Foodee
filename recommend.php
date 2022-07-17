@@ -23,7 +23,6 @@ class db {
 
 /* Database class ends */
 
-asdadasd
 class recommend extends db {
 
     public $resarr;
