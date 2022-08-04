@@ -1,9 +1,12 @@
 <?php
 
+/* Getting the required formdata */
 $name = $_POST['name'];
 $eater_type = $_POST['eater_type'];
 $age = $_POST['age'];
 $gender = $_POST['gender'];
+/* ----------------------------- */ 
+
 
 if(isset($_POST['mobile'])) {
     $mobile = $_POST['mobile'];
@@ -12,9 +15,10 @@ else {
     $mobile = NULL;
 }
 
-
+/* Generating a random profile id */
 $prefix = md5($name.$eater_type.$age);
 $profileid = uniqid($prefix, FALSE);
+/* -------------------------------- */ 
 
 try {
      
