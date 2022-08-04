@@ -36,24 +36,30 @@ class recommend extends db {
         /* Idealising declined_food array to use in foodid NOT IN clause */
         $decfoodarray = json_decode($declinedfoodarray, true);
         $notinfoodid = '';
-        $len = sizeof($decfoodarray)-1;
-        foreach($decfoodarray as $key => $value) {
-            if($len==$key) {
-                $notinfoodid .= $value;
+        if(sizeof($decfoodarray)!=0) {
+            $len = sizeof($decfoodarray)-1;
+            foreach($decfoodarray as $key => $value) {
+                if($len==$key) {
+                    $notinfoodid .= $value;
+                }
+                else {
+                    $notinfoodid .= $value.",";
+                }
             }
-            else {
-                $notinfoodid .= $value.",";
-            }
+        }
+        else {
+            $notinfoodid = "''";
         }
         /* ends ---------------------------------------------------------------- */
 
         try {
             if($foodtype_user=='nonveg') {
                 /* not using food_type after the WHERE clause (selects food irrespective of its type) */
-                $query = db::connect()->prepare("SELECT `name`, `image`, `food_type` FROM `commonnorth` WHERE MATCH(`food_time_type`) AGAINST ('".$foodtimetype."' IN NATURAL LANGUAGE MODE) AND `food_frequency_type`='".$foodfrequency."' AND `food_id` NOT IN(".$notinfoodid.") LIMIT ".$limit."");
+                /* $query = db::connect()->prepare("SELECT `name`, `image`, `food_type` FROM `commonnorth` WHERE MATCH(`food_time_type`) AGAINST ('".$foodtimetype."' IN NATURAL LANGUAGE MODE) AND `food_frequency_type`='".$foodfrequency."' AND `food_id` NOT IN(".$notinfoodid.") LIMIT ".$limit." ");*/
+                $query = db::connect()->prepare("SELECT `food_id`, `name`, `image`, `food_type` FROM `commonnorth` WHERE MATCH(`food_time_type`) AGAINST ('".$foodtimetype."' IN NATURAL LANGUAGE MODE) AND `food_frequency_type`='".$foodfrequency."' AND `food_id` NOT IN (".$notinfoodid.") LIMIT ".$limit." ");
             }
             else {
-                $query = db::connect()->prepare("SELECT `name`, `image`, `food_type` FROM `commonnorth` WHERE MATCH(`food_time_type`) AGAINST ('".$foodtimetype."' IN NATURAL LANGUAGE MODE) AND `food_frequency_type`='".$foodfrequency."' AND `food_id` NOT IN(".$notinfoodid.") AND `food_type`='veg' LIMIT ".$limit."");
+                $query = db::connect()->prepare("SELECT `food_id`, `name`, `image`, `food_type` FROM `commonnorth` WHERE MATCH(`food_time_type`) AGAINST ('".$foodtimetype."' IN NATURAL LANGUAGE MODE) AND `food_frequency_type`='".$foodfrequency."' AND `food_id` NOT IN (".$notinfoodid.") AND `food_type`='veg' LIMIT ".$limit." ");
             }
             
             $query->execute();
