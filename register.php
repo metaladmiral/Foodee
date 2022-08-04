@@ -58,6 +58,3 @@ try {
 catch(PDOException $e) {
     echo "query failed ".$e->getMessage();
 }
-
-
-?>
