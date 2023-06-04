@@ -7,27 +7,27 @@ class recommend extends db {
 
     private $tempRecommendationStorage, $specialDayFrequency, $normalDayFrequency;
     
-    private function __construct() {
+    public function __construct() {
         $this->tempRecommendationStorage = array();
         $this->normalDayFrequency = array("regular", "lessfrequent", "lessfrequent_special", "special");
-        $this->specialDayFrequency = array_reverse($normalDayFrequency); // special becomes priority
+        $this->specialDayFrequency = array_reverse($this->normalDayFrequency); // special becomes priority
     }
 
-    private function getFoodRecommendation($foodtype_user, $foodtimetype, $specialDay, $alreadyShownFoodIDs, $foodfrequency, $limit=FOOD_RECOMMENDATION_LIMIT) {
+    private function getFoodRecommendation($foodtype_user, $foodtimetype, $specialDay, $alreadyShownFoodIDs, $foodFrequency, $limit=FOOD_RECOMMENDATION_LIMIT) {
 
         /* Idealising declined_food array to use in foodid NOT IN clause */
         $alreadyShownFoodArray = json_decode($alreadyShownFoodIDs, true);
-        $excludedFoodIDs = implode(',', $alreadyShownFoodArray);
-
+        $excludedFoodIDs = (count($alreadyShownFoodArray)) ? implode(',', $alreadyShownFoodArray) : " '' ";
+        
         $foodFrequencies = "";
         ($specialDay) ? $foodFrequencies = $this->specialDayFrequency : $foodFrequencies = $this->normalDayFrequency;
 
         try {
             if($foodtype_user=='nonveg') {
-                $query = db::connect()->prepare("SELECT `food_id`, `name`, `image`, `food_type` FROM `commonnorth` WHERE MATCH(`food_time_type`) AGAINST ('".$foodtimetype."' IN NATURAL LANGUAGE MODE) AND `food_frequency_type`='".$foodFrequencies[$foodfrequency]."' AND `food_id` NOT IN (".$excludedFoodIDs.") LIMIT ".$limit." ");
+                $query = db::connect()->prepare("SELECT `food_id`, `name`, `image`, `food_type` FROM `commonnorth` WHERE MATCH(`food_time_type`) AGAINST ('".$foodtimetype."' IN NATURAL LANGUAGE MODE) AND `food_frequency_type`='".$foodFrequencies[$foodFrequency]."' AND `food_id` NOT IN (".$excludedFoodIDs.") LIMIT ".$limit." ");
             }
             else {
-                $query = db::connect()->prepare("SELECT `food_id`, `name`, `image`, `food_type` FROM `commonnorth` WHERE MATCH(`food_time_type`) AGAINST ('".$foodtimetype."' IN NATURAL LANGUAGE MODE) AND `food_frequency_type`='".$foodFrequencies[$foodfrequency]."' AND `food_id` NOT IN (".$excludedFoodIDs.") AND `food_type`='veg' LIMIT ".$limit." ");
+                $query = db::connect()->prepare("SELECT `food_id`, `name`, `image`, `food_type` FROM `commonnorth` WHERE MATCH(`food_time_type`) AGAINST ('".$foodtimetype."' IN NATURAL LANGUAGE MODE) AND `food_frequency_type`='".$foodFrequencies[$foodFrequency]."' AND `food_id` NOT IN (".$excludedFoodIDs.") AND `food_type`='veg' LIMIT ".$limit." ");
             }
         }
         catch(PDOException $e) {
@@ -36,7 +36,7 @@ class recommend extends db {
 
         $query->execute();
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
-        array_push($this->tempRecommendationStorage, $result); 
+        foreach ($result as $key => $value) { array_push($this->tempRecommendationStorage, $value);  }
 
         $resultCount = $query->rowCount();
         
@@ -74,28 +74,3 @@ class recommend extends db {
 
 $obj = new recommend();
 echo $obj->launchAPI();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
