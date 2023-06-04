@@ -55,7 +55,7 @@ class recommend extends db {
         $foodtimetype = (isset($_POST['food_time_type'])) ? $_POST['food_time_type'] : 0;
         $alreadyShownFoodIDs = (isset($_POST['declined_food_array'])) ? $_POST['declined_food_array'] : 0;
 
-        if(!$foodtimetype || !$foodtimetype || !$alreadyShownFoodIDs) {
+        if(!$foodtimetype || !$foodtype_user || !$alreadyShownFoodIDs) {
             return json_encode(array("status"=>"2", "msg"=>"Food Properties data missing."));
         }
 
