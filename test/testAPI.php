@@ -11,14 +11,14 @@
     <h2>Test Food Recommendation API</h2>
 <form action="../recommend.php" method="POST">
     <!-- <input type="hidden" name="foodtype_user" value="veg"> -->
-    <select name="foodtype_user" id="">
+    <select name="foodtype_user" id="" required>
         <option value="" selected disabled>Select Food Preference</option>
         <option value="veg">Veg</option>
         <option value="nonveg">Non-Veg</option>
     </select>
     <br>
     <br>
-    <select name="food_time_type" id="">
+    <select name="food_time_type" id="" required>
         <option value="" selected disabled>Select Time</option>
         <option value="breakfast">Breakfast</option>
         <option value="lunch">Lunch</option>
