@@ -13,7 +13,7 @@ This is currently a backend API to recommend recipe names and currently does not
 
 ## Table of Contents
 
-1. [Motivation behind the app and what problem does it solves?](#-Motivation-behind-the-app-and-what-problem-does-it-solves?)
+1. [Motivation behind the app and what problem does it solves?](#motivation-behind-the-app-and-what-problem-does-it-solves)
 2. [How to set it up locally?]()
 3. [What is the future vision of the project?]()
 4. [How to contribute and what features are yet to be built?]()
