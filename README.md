@@ -14,10 +14,10 @@ This is currently a backend API to recommend recipe names and currently does not
 ## Table of Contents
 
 1. [Motivation behind the app and what problem does it solves?](#motivation-behind-the-app-and-what-problem-does-it-solves)
-2. [How to set it up locally?]()
-3. [What is the future vision of the project?]()
-4. [How to contribute and what features are yet to be built?]()
-5. [How to test the API?]()
+2. [How to set it up locally?](#how-to-set-it-up-locally-desktop_computer)
+3. [What is the future vision of the project?](#what-is-the-future-vision-of-the-project)
+4. [How to contribute and what features are yet to be built?](#how-to-contribute-and-what-features-are-yet-to-be-built)
+5. [How to test the API?](#how-to-test-the-api)
 
 ### Motivation behind the app and what problem does it solves?
 
@@ -38,9 +38,9 @@ Currently, the recipe names that I have collected in DB are for Northern India a
 
 ### How to contribute and what features are yet to be built?
 
-If you want to contribute or have any cool idea regarding this project you can start a new discussion.
+If you want to contribute or have any cool idea regarding this project you can start a new discussion. You can refer to the issues tab as well.
 Mobile App, DB with recipe name for more Indian States and eventually more countries are required.
-Read the [future vision]() for more details.
+Read the [future vision](#what-is-the-future-vision-of-the-project) for more details.
 
 ### How to test the API?
 
