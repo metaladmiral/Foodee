@@ -3,11 +3,18 @@
 include 'db.php';
 define("FOOD_RECOMMENDATION_LIMIT", 6);
 
-class recommend extends db {
+class Recommend extends db {
 
     private $tempRecommendationStorage, $specialDayFrequency, $normalDayFrequency;
     
-    public function __construct() {
+    public function __construct($foodtype_user='veg', $food_time_type='breakfast',$declined_food_array='[]', $specialday='0') {
+        if($food_time_type && $foodtype_user && $declined_food_array && gettype($specialday)=='string')  {
+            $_POST['foodtype_user'] = $foodtype_user;
+            $_POST['food_time_type'] = $food_time_type;
+            $_POST['declined_food_array'] = $declined_food_array;
+            $_POST['specialday'] = $specialday;
+        }
+
         $this->tempRecommendationStorage = array();
         $this->normalDayFrequency = array("regular", "lessfrequent", "lessfrequent_special", "special");
         $this->specialDayFrequency = array_reverse($this->normalDayFrequency); // special becomes priority
@@ -71,6 +78,3 @@ class recommend extends db {
     }
 
 }
-
-$obj = new recommend();
-echo $obj->launchAPI();

@@ -1,37 +1,21 @@
 <?php
 
-class recommendTest extends PHPUnit\Framework\TestCase {
+require_once('recommend.php');
+require_once dirname(dirname(__FILE__)) . '../recommend.php'; #works fine
+
+class recommendTest extends \PHPUnit\Framework\TestCase {
     public function testLaunchAPI() :void
     {
-        $url = "http://localhost/Foodee/api/recommend.php";
+        $recommend = new Recommend();
+        $resp = $recommend->launchAPI();
 
-        $postData = array(
-            'foodtype_user' => 'veg',
-            'food_time_type' => 'breakfast',
-            'declined_food_array' => '[]',
-            'specialday' => '0'
-        );
+        $respArray = json_decode($resp, true);
+        $respStatus = $respArray['status'];
+        // $respStatus = "1";
 
-        $ch = curl_init($url);
+        $expectedStatus = "1";
 
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData)); // Convert data to URL-encoded format
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        $response = curl_exec($ch);
-
-        if (curl_errno($ch)) {
-            echo 'cURL Error: ' . curl_error($ch);
-        }
-
-        curl_close($ch);
-        $resp = $response;
-        $respObj = json_decode($resp, true);
-        $statusResp = $respObj['status'];
-
-        $expected = "1";
-
-        $this->assertSame($expected, $statusResp);
+        $this->assertSame($expectedStatus, $respStatus);
 
     }
 }
