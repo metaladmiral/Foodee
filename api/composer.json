@@ -1,5 +1,9 @@
 {
+    "name": "Foodee/api",
+	"type": "Foodee/api",
+	"description": "Foodee API",
     "require-dev": {
         "phpunit/phpunit": "^9.6"
-    }
+    },
+    "license": "MIT"
 }
