@@ -18,7 +18,7 @@ jobs:
 
       - name: Validate composer.json and composer.lock
         working-directory: "api"
-        run: composer validate
+        run: composer validate --strict
 
       - name: Cache Composer packages
         id: composer-cache
