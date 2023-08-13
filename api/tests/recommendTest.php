@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(dirname(__FILE__)) . 'recommend.php'; #works fine
+require_once dirname(dirname(__FILE__)) . '/recommend.php'; #works fine
 
 class recommendTest extends \PHPUnit\Framework\TestCase {
     public function testLaunchAPI() :void
