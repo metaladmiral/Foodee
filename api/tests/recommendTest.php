@@ -3,7 +3,7 @@
 class recommendTest extends PHPUnit\Framework\TestCase {
     public function testLaunchAPI() :void
     {
-        $url = "http://foodee.test/api/recommend.php";
+        $url = "http://localhost/Foodee/api/recommend.php";
 
         $postData = array(
             'foodtype_user' => 'veg',
