@@ -1,6 +1,6 @@
 {
-    "name": "Foodee/api",
-	"type": "Foodee/api",
+    "name": "foodee/api",
+	"type": "foodee-api",
 	"description": "Foodee API",
     "require-dev": {
         "phpunit/phpunit": "^9.6"
